@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .expense-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .expense-list li {
+            background: #f4f4f4;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Expense Tracker</h2>
+        <div class="form-control">
+            <label for="expense-name">Expense Name</label>
+            <input type="text" id="expense-name">
+        </div>
+        <div class="form-control">
+            <label for="expense-amount">Amount</label>
+            <input type="number" id="expense-amount">
+        </div>
+        <button class="btn" onclick="addExpense()">Add Expense</button>
+        <h3>Total: $<span id="total-amount">0</span></h3>
+        <ul class="expense-list" id="expense-list"></ul>
+    </div>
+
+    <script>
+        let totalAmount = 0;
+
+        function addExpense() {
+            const name = document.getElementById('expense-name').value;
+            const amount = parseFloat(document.getElementById('expense-amount').value);
+
+            if (name && amount) {
+                const expenseList = document.getElementById('expense-list');
+                const li = document.createElement('li');
+                li.innerHTML = `${name} <span>$${amount.toFixed(2)}</span>`;
+                expenseList.appendChild(li);
+
+                totalAmount += amount;
+                document.getElementById('total-amount').innerText = totalAmount.toFixed(2);
+
+                document.getElementById('expense-name').value = '';
+                document.getElementById('expense-amount').value = '';
+            } else {
+                alert('Please enter valid expense name and amount');
+            }
+        }
+    </script>
+</body>
+</html>
